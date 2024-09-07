@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+</head>
+<body>
+  <h1>Users List</h1>
+  <form method="GET" action="/users">
+    <input type="text" name="search" placeholder="Search by name" value="<%= search %>">
+    <select name="sort">
+      <option value="asc" <%= sort === "asc" ? "selected" : "" %>>Sort by ID (Asc)</option>
+      <option value="desc" <%= sort === "desc" ? "selected" : "" %>>Sort by ID (Desc)</option>
+    </select>
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    <% users.forEach(user => { %>
+      <li><%= user.id %> - <%= user.name %></li>
+    <% }) %>
+  </ul>
+  <div>
+    <% if (page > 1) { %>
+      <a href="/users?page=<%= page - 1 %>&limit=<%= limit %>&search=<%= search %>&sort=<%= sort %>">Previous</a>
+    <% } %>
+    <% if (users.length === limit) { %>
+      <a href="/users?page=<%= page + 1 %>&limit=<%= limit %>&search=<%= search %>&sort=<%= sort %>">Next</a>
+    <% } %>
+  </div>
+</body>
+</html>
